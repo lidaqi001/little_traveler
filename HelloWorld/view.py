@@ -3,13 +3,15 @@ from django.shortcuts import render
 from TestModel.models import Test, User
 from TestModel.helper import myThread
 # 爬虫相关
-from urllib.request import urlopen;
-from bs4 import BeautifulSoup;
+from urllib.request import urlopen
+from urllib.error import HTTPError, URLError
+from bs4 import BeautifulSoup
+import json
 
 
 def hello(request):
     # 创建新线程
-    repet = 1
+    repet = 5
     while repet <= 5:
         print(repet)
         thread = {}
@@ -38,7 +40,7 @@ def scrape(request):
         print("节点不存在！");
     else:
         print("节点存在：" + str(obj.body.h1))
-    return HttpResponse("it's over")  # !/usr/bin/python3
+    return HttpResponse("it's over" + json.dumps(str(obj)))  # !/usr/bin/python3
 
 
 # 获取节点
